@@ -128,7 +128,7 @@ namespace OpenGLIV
 
             GL.BindVertexArray(_vertexArrayObject);
 
-            _shader.SetMatrix4("projection", matriz);
+            _shader.SetMatrix4("projection", _view * matriz);
 
             GL.DrawElements(PrimitiveType.Triangles, _indices.Length, DrawElementsType.UnsignedInt, 0);
 

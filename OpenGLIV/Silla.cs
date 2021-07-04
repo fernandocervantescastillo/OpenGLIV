@@ -5,14 +5,17 @@ using OpenTK.Mathematics;
 
 namespace OpenGLIV
 {
-    class Silla
+    class Silla : IObjeto
     {
-        private List<Cubo> list;
-
+        
+        public List<Cubo> list;
+        
         public Silla(float a, float b, float h1, float h2, float z, float posX, float posY, float posZ)
+            : base()
         {
             Cubo pata1 = new Cubo(z, h1, z, 0 + posX, 0 + posY, 0 + posZ);
             Cubo pata2 = new Cubo(z, h2 - z, z, b - z + posX, 0 + posY, 0 + posZ);
+            pata2.setCenter(new Vector3(b - z + posX, 0 + posY, 0 + posZ));
             Cubo pata3 = new Cubo(z, h1, z, 0 + posX, 0 + posY, a - z + posZ);
             Cubo pata4 = new Cubo(z, h2 - z, z, b - z + posX, 0 + posY, a - z + posZ);
 
@@ -31,15 +34,16 @@ namespace OpenGLIV
 
         }
 
-        public void draw(Matrix4 matriz)
+        public override void draw(Matrix4 matriz)
         {
+            //pata1.rotar(0.01f, 0, 0);
             for (int i = 0; i < list.Count; i++)
             {
-                list[i].draw(matriz);
+                list[i].draw(_view * matriz);
             }
         }
 
-        public void dispose()
+        public override void dispose()
         {
             for (int i = 0; i < list.Count; i++)
             {

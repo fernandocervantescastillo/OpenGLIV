@@ -8,13 +8,23 @@ namespace OpenGLIV
     public abstract class IObjeto
     {
 
-        private Matrix4 _view;
-        private Vector3 centro;
+        public Matrix4 _view;
+        public Vector3 centro;
 
         public IObjeto()
         {
             _view = Matrix4.Identity;
             centro = new Vector3(0, 0, 0);
+        }
+
+        public void setCenter(Vector3 centro1)
+        {
+            centro = new Vector3(centro1);
+        } 
+
+        public Vector3 getCenter()
+        {
+            return centro;
         }
 
 
@@ -25,9 +35,11 @@ namespace OpenGLIV
 
         public void rotar(float x, float y, float z)
         {
+            trasladar(centro.X, centro.Y, centro.Z);
             _view = Matrix4.CreateRotationX(x) * _view;
             _view = Matrix4.CreateRotationY(y) * _view;
             _view = Matrix4.CreateRotationZ(z) * _view;
+            trasladar(-centro.X, -centro.Y, -centro.Z);
         }
 
         public void agrandar(float x, float y, float z)
